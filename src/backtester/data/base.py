@@ -9,6 +9,7 @@ interface so the engine never depends on a specific data source.
 
 from __future__ import annotations
 from abc import ABC, abstractmethod
+from tenacity import retry, wait_fixed, stop_after_attempt
 
 from src.backtester.events import MarketEvent
 
@@ -35,6 +36,11 @@ class DataFeed(ABC):
     # -----------------------------------------------------------------
 
     @abstractmethod
+    @retry(
+        wait=wait_fixed(0.01),
+        stop=stop_after_attempt(5),
+        reraise=True,
+    )
     async def load(self) -> None:
         """
         Fetch / read all bars from the underlying source and store them
