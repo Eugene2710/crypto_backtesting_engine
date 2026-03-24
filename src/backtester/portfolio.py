@@ -44,8 +44,6 @@ There is no shorting in this implementation. Short support is a planned
 future extension — the OrderSide enum already supports it.
 """
 
-from __future__ import annotations
-
 from pydantic import BaseModel
 
 from src.backtester.events import (

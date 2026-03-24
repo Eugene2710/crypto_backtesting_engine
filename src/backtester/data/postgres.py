@@ -29,8 +29,6 @@ Expected schema (placeholder — finalise when ETL is ready):
     );
 """
 
-from __future__ import annotations
-
 from src.backtester.data.base import DataFeed
 from src.backtester.events import MarketEvent
 

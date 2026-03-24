@@ -14,7 +14,6 @@ Usage
         ...
 """
 
-from __future__ import annotations
 from tenacity import retry, wait_fixed, stop_after_attempt
 
 from crypto_indicators.binance_api import get_klines

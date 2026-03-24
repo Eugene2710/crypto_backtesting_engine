@@ -8,7 +8,6 @@ emit zero or one SignalEvent per bar. The strategy has access to all bars
 up to and including the current bar — never beyond it.
 """
 
-from __future__ import annotations
 from abc import ABC, abstractmethod
 
 from src.backtester.events import MarketEvent, SignalEvent

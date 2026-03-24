@@ -16,7 +16,6 @@ Using Pydantic BaseModel gives us:
   - Clear schema documentation for future MCP tool integration
 """
 
-from __future__ import annotations
 from enum import Enum
 from typing import Literal
 

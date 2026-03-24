@@ -7,7 +7,6 @@ All concrete adapters (Binance, Postgres, CSV, …) must implement this
 interface so the engine never depends on a specific data source.
 """
 
-from __future__ import annotations
 from abc import ABC, abstractmethod
 from tenacity import retry, wait_fixed, stop_after_attempt
 

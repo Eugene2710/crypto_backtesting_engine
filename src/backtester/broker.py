@@ -22,8 +22,6 @@ fill is the OPEN of bar N+1, which is what this broker uses. This is the
 most conservative (pessimistic) fill assumption and avoids lookahead bias.
 """
 
-from __future__ import annotations
-
 from src.backtester.events import FillEvent, MarketEvent, OrderEvent, OrderSide
 
 

@@ -23,8 +23,6 @@ so the earliest possible signal is bar 50.
 Bars before that are accumulated silently with no signal emitted.
 """
 
-from __future__ import annotations
-
 from src.backtester.events import MarketEvent, SignalEvent, SignalDirection
 from src.backtester.strategies.base import Strategy
 
