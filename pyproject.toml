@@ -13,6 +13,7 @@ dependencies = [
     "numpy>=2.0.0",
     "pandas>=2.2.0",
     "setuptools==82.0.1",
+    "pytest>=9.0.2",
 ]
 
 [build-system]
