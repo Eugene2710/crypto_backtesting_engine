@@ -13,7 +13,6 @@ dependencies = [
     "numpy>=2.0.0",
     "pandas>=2.2.0",
     "setuptools==82.0.1",
-    "pytest>=9.0.2",
 ]
 
 [build-system]
@@ -25,3 +24,14 @@ packages = ["src/backtester"]
 
 [tool.uv.sources]
 crypto-indicators = { path = "../crypto_indicators" }
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+]
+
+[tool.pytest.ini_options]
+# Discover tests only in the tests/ directory.
+testpaths = ["tests"]
+# Verbose output by default — shows each test name and pass/fail.
+addopts = "-v"

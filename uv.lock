@@ -135,8 +135,12 @@ dependencies = [
     { name = "numpy" },
     { name = "pandas" },
     { name = "pydantic" },
-    { name = "pytest" },
     { name = "setuptools" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "pytest" },
 ]
 
 [package.metadata]
@@ -145,9 +149,11 @@ requires-dist = [
     { name = "numpy", specifier = ">=2.0.0" },
     { name = "pandas", specifier = ">=2.2.0" },
     { name = "pydantic", specifier = ">=2.0.0" },
-    { name = "pytest", specifier = ">=9.0.2" },
     { name = "setuptools", specifier = "==82.0.1" },
 ]
+
+[package.metadata.requires-dev]
+dev = [{ name = "pytest", specifier = ">=9.0.2" }]
 
 [[package]]
 name = "crypto-indicators"
