@@ -71,34 +71,58 @@ class SlicedFeed(BinanceDataFeed):
 # ---------------------------------------------------------------------------
 
 def run_oos_window(
-    bars:     list[MarketEvent],
-    warm_up:  int,
+    is_bars:  list[MarketEvent],
+    oos_bars: list[MarketEvent],
 ) -> dict[str, float]:
     """
-    Run a full backtest on the given bar slice and return the performance report.
+    Run a walk-forward window and return performance metrics for the OOS
+    period only.
+
+    Correct walk-forward architecture
+    ----------------------------------
+    The engine runs on IS + OOS bars combined. warm_up_bars is set to
+    len(is_bars) so that:
+      - IS bars warm up the strategy indicators fully — no trades placed.
+      - OOS bars are evaluated with fully converged indicators — trades fire.
+
+    Only the OOS portion of the equity curve (last len(oos_bars) entries)
+    is passed to performance_report so Sharpe and other metrics reflect
+    purely out-of-sample performance.
+
+    Running OOS bars alone with a small warm_up would starve SMA50 of
+    history, resulting in no trades and a flat equity curve (Sharpe = 0.0).
 
     Parameters
     ----------
-    bars    : the OOS window bar slice
-    warm_up : bars fed to the strategy before orders are allowed to fire
+    is_bars  : in-sample bars — used to warm up indicators, no trades counted
+    oos_bars : out-of-sample bars — trades and performance measured here
     """
+    all_bars: list[MarketEvent] = is_bars + oos_bars
+
     strategy  = SMACrossoverStrategy(fast_period=20, slow_period=50)
     portfolio = Portfolio(initial_capital=10_000.0, risk_per_trade=0.01)
     broker    = SimulatedBroker(fee_rate=0.001, slippage=0.0)
-    feed      = SlicedFeed(bars)
+    feed      = SlicedFeed(all_bars)
 
     engine = BacktestEngine(
         feed=feed,
         strategy=strategy,
         portfolio=portfolio,
         broker=broker,
-        warm_up_bars=warm_up,
+        warm_up_bars=len(is_bars),  # IS bars warm up indicators, OOS bars trade
     )
     engine.run()
 
+    # Extract only the OOS portion of the equity curve for evaluation.
+    oos_equity_curve = portfolio.equity_curve[-len(oos_bars):]
+
+    # Extract only trades that opened during the OOS window.
+    oos_start_ts: int = oos_bars[0].timestamp
+    oos_trades = [t for t in portfolio.trades if t.entry_time >= oos_start_ts]
+
     return performance_report(
-        equity_curve=portfolio.equity_curve,
-        trades=portfolio.trades,
+        equity_curve=oos_equity_curve,
+        trades=oos_trades,
     )
 
 
@@ -125,10 +149,11 @@ class TestWalkForward:
             btcusdt_daily_feed.get_bar(i) for i in range(len(btcusdt_daily_feed))
         ]
 
+        # in_sample_size also serves as warm_up_bars inside run_oos_window —
+        # the 200 IS bars warm up the strategy indicators before OOS trading begins.
         in_sample_size: int = 200
-        oos_size:        int = 100
-        step:            int = 100
-        warm_up:         int = 50   # SMA50 needs at least 50 bars
+        oos_size:       int = 100
+        step:           int = 100
 
         oos_results:   list[float] = []
         start: int = 0
@@ -137,9 +162,11 @@ class TestWalkForward:
             oos_start: int = start + in_sample_size
             oos_end:   int = oos_start + oos_size
 
-            # Act — run on OOS window only
+            is_bars:  list[MarketEvent] = all_bars[start:oos_start]
             oos_bars: list[MarketEvent] = all_bars[oos_start:oos_end]
-            report = run_oos_window(oos_bars, warm_up=warm_up)
+
+            # Act — warm up on IS bars, evaluate on OOS bars
+            report = run_oos_window(is_bars=is_bars, oos_bars=oos_bars)
             oos_results.append(report["sharpe_ratio"])
 
             start += step

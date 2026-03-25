@@ -34,7 +34,7 @@ Principles applied
 
 import pytest
 
-from conftest import make_bar
+from tests.helpers import make_bar
 from src.backtester.events import MarketEvent, SignalEvent, SignalDirection
 from src.backtester.strategies.ma_crossover import SMACrossoverStrategy
 

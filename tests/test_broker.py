@@ -23,7 +23,7 @@ Principles applied
 
 import pytest
 
-from conftest import make_bar
+from tests.helpers import make_bar
 from src.backtester.broker import SimulatedBroker
 from src.backtester.events import FillEvent, OrderEvent, OrderSide
 
