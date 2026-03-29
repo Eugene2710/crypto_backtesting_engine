@@ -19,9 +19,6 @@ Principles applied
 - Synthetic bars with predictable values make failures easy to diagnose.
 - One concern per test: lookahead by bar index, and correct bar count.
 """
-
-import pytest
-
 from tests.helpers import make_bar
 from src.backtester.broker import SimulatedBroker
 from src.backtester.engine import BacktestEngine

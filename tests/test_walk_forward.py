@@ -31,12 +31,6 @@ is curve-fitted to in-sample data only.
 This is a true integration test: it hits the Binance API and exercises
 the full engine stack (DataFeed → Engine → Strategy → Portfolio → Broker).
 """
-
-import asyncio
-from collections.abc import Generator
-
-import pytest
-
 from src.backtester.broker import SimulatedBroker
 from src.backtester.data.binance import BinanceDataFeed
 from src.backtester.engine import BacktestEngine

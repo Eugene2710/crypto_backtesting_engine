@@ -20,9 +20,6 @@ Principles applied
 - Floating point comparisons use a tight tolerance (1e-9) rather than
   equality to handle binary representation rounding.
 """
-
-import pytest
-
 from tests.helpers import make_bar
 from src.backtester.broker import SimulatedBroker
 from src.backtester.events import FillEvent, OrderEvent, OrderSide

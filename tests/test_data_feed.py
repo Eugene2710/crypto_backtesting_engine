@@ -21,8 +21,6 @@ Principles applied
 
 import math
 
-import pytest
-
 from src.backtester.data.binance import BinanceDataFeed
 from src.backtester.events import MarketEvent
 

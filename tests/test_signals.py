@@ -31,9 +31,6 @@ Principles applied
   guaranteed — there is no ambiguity about when signals should fire.
 - Fixtures provide a fresh strategy instance for each test.
 """
-
-import pytest
-
 from tests.helpers import make_bar
 from src.backtester.events import MarketEvent, SignalEvent, SignalDirection
 from src.backtester.strategies.ma_crossover import SMACrossoverStrategy

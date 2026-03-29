@@ -32,7 +32,6 @@ Recommended warm_up_bars:
   ≥ 50  for SMA50-based strategies (minimum for first valid SMA)
   ≥ 200 for EMA-based strategies   (reduces seed bias to ~0%)
 """
-
 from src.backtester.broker import SimulatedBroker
 from src.backtester.data.base import DataFeed
 from src.backtester.events import FillEvent, OrderEvent, SignalEvent
@@ -62,11 +61,11 @@ class BacktestEngine:
         broker:       SimulatedBroker,
         warm_up_bars: int = 200,
     ) -> None:
-        self._feed:         DataFeed        = feed
-        self._strategy:     Strategy        = strategy
-        self._portfolio:    Portfolio       = portfolio
-        self._broker:       SimulatedBroker = broker
-        self._warm_up_bars: int             = warm_up_bars
+        self._feed: DataFeed = feed
+        self._strategy: Strategy = strategy
+        self._portfolio: Portfolio = portfolio
+        self._broker: SimulatedBroker = broker
+        self._warm_up_bars: int = warm_up_bars
 
         # Pending order raised on bar N, to be filled at bar N+1's open.
         # Only one order can be pending at a time (one position at a time).

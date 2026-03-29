@@ -29,9 +29,6 @@ Principles applied
 - Floating point comparisons use tolerances appropriate to each metric
   (tight for exact arithmetic, looser for square-root based ratios).
 """
-
-import math
-
 import pytest
 
 from src.backtester.performance import (
