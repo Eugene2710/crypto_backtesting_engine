@@ -22,7 +22,7 @@ Principles applied
 """
 from tests.helpers import make_bar
 from src.backtester.broker import SimulatedBroker
-from src.backtester.events import FillEvent, OrderEvent, OrderSide
+from src.backtester.data.events import FillEvent, OrderEvent, OrderSide
 
 
 class TestSimulatedBrokerFill:

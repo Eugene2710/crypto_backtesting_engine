@@ -34,7 +34,7 @@ the full engine stack (DataFeed → Engine → Strategy → Portfolio → Broker
 from src.backtester.broker import SimulatedBroker
 from src.backtester.data.binance import BinanceDataFeed
 from src.backtester.engine import BacktestEngine
-from src.backtester.events import MarketEvent
+from src.backtester.data.events import MarketEvent
 from src.backtester.performance import performance_report
 from src.backtester.portfolio import Portfolio
 from src.backtester.strategies.ma_crossover import SMACrossoverStrategy

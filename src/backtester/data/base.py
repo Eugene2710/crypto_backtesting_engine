@@ -10,7 +10,7 @@ interface so the engine never depends on a specific data source.
 from abc import ABC, abstractmethod
 from tenacity import retry, wait_fixed, stop_after_attempt
 
-from src.backtester.events import MarketEvent
+from src.backtester.data.events import MarketEvent
 
 
 class DataFeed(ABC):

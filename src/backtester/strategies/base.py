@@ -10,7 +10,7 @@ up to and including the current bar — never beyond it.
 
 from abc import ABC, abstractmethod
 
-from src.backtester.events import MarketEvent, SignalEvent
+from src.backtester.data.events import MarketEvent, SignalEvent
 
 
 class Strategy(ABC):

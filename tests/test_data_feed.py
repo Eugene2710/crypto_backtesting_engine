@@ -22,7 +22,7 @@ Principles applied
 import math
 
 from src.backtester.data.binance import BinanceDataFeed
-from src.backtester.events import MarketEvent
+from src.backtester.data.events import MarketEvent
 
 
 class TestBinanceDataFeed:

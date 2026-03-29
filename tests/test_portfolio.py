@@ -28,7 +28,7 @@ Only Portfolio, SimulatedBroker, and synthetic FillEvents are involved.
 """
 from tests.helpers import make_bar
 from src.backtester.broker import SimulatedBroker
-from src.backtester.events import OrderEvent, OrderSide
+from src.backtester.data.events import OrderEvent, OrderSide
 from src.backtester.portfolio import Portfolio, Trade
 
 

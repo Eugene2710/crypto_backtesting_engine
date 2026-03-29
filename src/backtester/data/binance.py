@@ -19,7 +19,7 @@ from tenacity import retry, wait_fixed, stop_after_attempt
 from crypto_indicators.binance_api import get_klines
 
 from src.backtester.data.base import DataFeed
-from src.backtester.events import MarketEvent
+from src.backtester.data.events import MarketEvent
 
 
 class BinanceDataFeed(DataFeed):

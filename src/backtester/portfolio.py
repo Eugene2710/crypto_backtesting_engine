@@ -46,7 +46,7 @@ future extension — the OrderSide enum already supports it.
 
 from pydantic import BaseModel
 
-from src.backtester.events import (
+from src.backtester.data.events import (
     FillEvent,
     MarketEvent,
     OrderEvent,
@@ -92,12 +92,12 @@ class Portfolio:
     def __init__(
         self,
         initial_capital: float = 10000.0,
-        risk_per_trade:  float = 0.01,
-        atr_period:      int   = 14,
+        risk_per_trade: float = 0.01,
+        atr_period: int = 14,
     ) -> None:
         self._initial_capital: float = initial_capital
-        self._risk_per_trade:  float = risk_per_trade
-        self._atr_period:      int   = atr_period
+        self._risk_per_trade: float = risk_per_trade
+        self._atr_period: int = atr_period
 
         self.cash: float = initial_capital          # quote currency balance (e.g. USDT)
         self.position_qty: float = 0.0              # base asset held (e.g. BTC); 0 = flat

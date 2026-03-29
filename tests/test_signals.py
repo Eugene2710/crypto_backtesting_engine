@@ -32,7 +32,7 @@ Principles applied
 - Fixtures provide a fresh strategy instance for each test.
 """
 from tests.helpers import make_bar
-from src.backtester.events import MarketEvent, SignalEvent, SignalDirection
+from src.backtester.data.events import MarketEvent, SignalEvent, SignalDirection
 from src.backtester.strategies.ma_crossover import SMACrossoverStrategy
 
 

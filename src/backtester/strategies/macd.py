@@ -34,7 +34,7 @@ Why incremental instead of calling calc_macd_series?
   matter, but the habit is correct for future higher-frequency data (4H, 1H).
 """
 
-from src.backtester.events import MarketEvent, SignalEvent, SignalDirection
+from src.backtester.data.events import MarketEvent, SignalEvent, SignalDirection
 from src.backtester.strategies.base import Strategy
 
 

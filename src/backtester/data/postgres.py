@@ -30,7 +30,7 @@ Expected schema (placeholder — finalise when ETL is ready):
 """
 
 from src.backtester.data.base import DataFeed
-from src.backtester.events import MarketEvent
+from src.backtester.data.events import MarketEvent
 
 
 class PostgresDataFeed(DataFeed):

@@ -34,10 +34,10 @@ Recommended warm_up_bars:
 """
 from src.backtester.broker import SimulatedBroker
 from src.backtester.data.base import DataFeed
-from src.backtester.events import FillEvent, OrderEvent, SignalEvent
+from src.backtester.data.events import FillEvent, OrderEvent, SignalEvent
 from src.backtester.portfolio import Portfolio
 from src.backtester.strategies.base import Strategy
-from src.backtester.events import MarketEvent
+from src.backtester.data.events import MarketEvent
 
 
 class BacktestEngine:

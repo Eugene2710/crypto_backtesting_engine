@@ -22,7 +22,7 @@ Principles applied
 from tests.helpers import make_bar
 from src.backtester.broker import SimulatedBroker
 from src.backtester.engine import BacktestEngine
-from src.backtester.events import MarketEvent, SignalEvent
+from src.backtester.data.events import MarketEvent, SignalEvent
 from src.backtester.portfolio import Portfolio
 from src.backtester.strategies.base import Strategy
 

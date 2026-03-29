@@ -8,7 +8,7 @@ Plain helper functions that are called directly with custom arguments
 live here so they can be explicitly imported by any test module.
 """
 
-from src.backtester.events import MarketEvent
+from src.backtester.data.events import MarketEvent
 
 
 def make_bar(
