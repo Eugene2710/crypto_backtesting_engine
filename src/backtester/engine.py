@@ -38,6 +38,7 @@ from src.backtester.data.base import DataFeed
 from src.backtester.events import FillEvent, OrderEvent, SignalEvent
 from src.backtester.portfolio import Portfolio
 from src.backtester.strategies.base import Strategy
+from src.backtester.events import MarketEvent
 
 
 class BacktestEngine:
@@ -89,7 +90,7 @@ class BacktestEngine:
         # Seed the one-bar buffer with the first bar from the feed.
         # We need to hold `prev_bar` so that on each iteration we can
         # process prev_bar while using current_bar as the fill source.
-        from src.backtester.events import MarketEvent
+
         prev_bar: MarketEvent | None = self._feed.next_bar()
 
         if prev_bar is None:
