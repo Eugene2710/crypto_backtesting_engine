@@ -14,11 +14,12 @@ Event flow per bar
 
 Zero lookahead guarantee
 ------------------------
-The engine maintains a one-bar buffer: it processes bar N using bar N+1
-only as the fill price source. The strategy and portfolio never receive
-bar N+1 during bar N's processing. The pending order is stored between
-iterations and filled at the very start of the next iteration, before
-the strategy sees the new bar.
+The engine reads one bar ahead only to detect the end of the feed. It
+never reads the prices of that bar. An order from bar N is stored as the
+pending order. The broker fills it at the open of bar N+1, at the start
+of the iteration for bar N+1. The fill occurs before the portfolio records
+the equity of bar N+1 and before the strategy sees bar N+1. An order from
+the last bar never fills.
 
 Warm-up period
 --------------
@@ -87,8 +88,8 @@ class BacktestEngine:
         (e.g. for a second walk-forward window).
         """
         # Seed the one-bar buffer with the first bar from the feed.
-        # We need to hold `prev_bar` so that on each iteration we can
-        # process prev_bar while using current_bar as the fill source.
+        # Each iteration processes prev_bar. It reads current_bar only to
+        # detect the end of the feed, never for its prices.
 
         prev_bar: MarketEvent | None = self._feed.next_bar()
 
@@ -98,15 +99,16 @@ class BacktestEngine:
         while True:
             current_bar: MarketEvent | None = self._feed.next_bar()
 
-            # ---- Step 1: fill any pending order at current bar's open ----
-            # This happens BEFORE the strategy sees current_bar, ensuring
-            # the fill price is not accessible to strategy logic on prev_bar.
-            # If there is no next bar (end of feed), the pending order is
-            # discarded — no fill on the last bar.
-            if self._pending_order is not None and current_bar is not None:
+            # ---- Step 1: fill any pending order at this bar's open --------
+            # The pending order came from the previous bar. Fill it at the
+            # open of prev_bar (the bar that this iteration processes), so a
+            # signal on bar N fills at the open of bar N+1. The fill occurs
+            # before Step 2 records the equity of this bar, and before the
+            # strategy sees this bar.
+            if self._pending_order is not None:
                 fill: FillEvent = self._broker.execute(
                     order=self._pending_order,
-                    next_bar=current_bar,
+                    next_bar=prev_bar,
                 )
                 self._portfolio.on_fill(fill)
                 self._pending_order = None
